@@ -1,22 +1,11 @@
 #include <iostream>
 #include <cmath>
 #include <fstream>
+#include <chrono>
+
 using namespace std;
-
-int recursiva(int p,int bola){
-    if (p == 1){
-        return 1;
-    }else{
-        //Parte derecha
-        if(bola % (2^p - (2^p)/2) == 0){
-            return 2*recursiva(p-1,bola) + 1;
-        }else{
-            return 2* recursiva(p-1,bola);
-        }
-    }
-}
-
-int busquedaInm(int p, int i, int nodo) {
+using namespace std::chrono;
+long long unsigned int busquedaInm(int p, int i, int nodo) {
     if (p == 1) {
         return nodo;
     }
@@ -30,17 +19,19 @@ int busquedaInm(int p, int i, int nodo) {
     }
 }
 
-int busqueda(int p, int i) {
+long long unsigned int busqueda(int p, int i) {
     return busquedaInm(p, i, 1);
 }
 
 int main(int argc, char* argv[]) {
     int p, n;
+    std::chrono::time_point<std::chrono::system_clock> start, end;
+    int total_ns = 0;
     ifstream f;
     f.open(argv[1]);
     if (f.is_open()) {
         ofstream g;
-        g.open(argv[2]);
+        g.open(argv[2],ios::trunc);
         if (g.is_open()) {
             while (!f.eof()) {
                 f >> p >> n;
@@ -50,8 +41,15 @@ int main(int argc, char* argv[]) {
                 else {
                     g << "Búsqueda con p = " << p << " y n = " << n << endl;
                     for (int i = 1; i <= n; i++) {
-                        g << "Bola " << i << " -> " << busqueda(p, i) << endl;
+                        start = std::chrono::system_clock::now();
+                        g << "Bola " << i << " -> " << busqueda(p, i);
+                        end = std::chrono::system_clock::now();
+                        std::chrono::duration<double> elapsed_seconds = end - start;
+                        auto nanoseconds = std::chrono::duration_cast<std::chrono::nanoseconds>(elapsed_seconds);
+                        g << "  Tiempo: " << nanoseconds.count() << "ns\n";
+                        total_ns += nanoseconds.count();
                     }
+                    g << "----- TIEMPO TOTAL " << total_ns << "ns -----\n";
                     g << endl;
                 }
             }
@@ -60,3 +58,9 @@ int main(int argc, char* argv[]) {
     }
     f.close();
 }
+
+    
+    
+     
+  
+             
