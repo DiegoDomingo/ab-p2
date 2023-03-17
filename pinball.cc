@@ -12,10 +12,10 @@ unsigned long long busquedaInm(int p, int i, unsigned long long nodo) {
     }
     else {
         if (i % 2 != 0) {
-            return busquedaInm(p-1, (i + 1) / 2, nodo * 2);
+            return busquedaInm(p - 1, (i + 1) / 2, nodo * 2);
         }
         else {
-            return busquedaInm(p-1, i / 2, nodo * 2 + 1);
+            return busquedaInm(p - 1, i / 2, nodo * 2 + 1);
         }
     }
 }
