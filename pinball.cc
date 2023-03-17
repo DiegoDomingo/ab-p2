@@ -4,29 +4,29 @@
 #include <chrono>
 
 using namespace std;
-using namespace std::chrono;
-long long unsigned int busquedaInm(int p, int i, int nodo) {
+using namespace chrono;
+
+unsigned long long busquedaInm(int p, int i, unsigned long long nodo) {
     if (p == 1) {
         return nodo;
     }
     else {
         if (i % 2 != 0) {
-            return busquedaInm(p-1, ceil(i / 2.0), nodo * 2);
+            return busquedaInm(p-1, (i + 1) / 2, nodo * 2);
         }
         else {
-            return busquedaInm(p-1, ceil(i / 2.0), nodo * 2 + 1);
+            return busquedaInm(p-1, i / 2, nodo * 2 + 1);
         }
     }
 }
 
-long long unsigned int busqueda(int p, int i) {
+unsigned long long busqueda(int p, int i) {
     return busquedaInm(p, i, 1);
 }
 
 int main(int argc, char* argv[]) {
     int p, n;
-    std::chrono::time_point<std::chrono::system_clock> start, end;
-    int total_ns = 0;
+    time_point<high_resolution_clock> start, end;
     ifstream f;
     f.open(argv[1]);
     if (f.is_open()) {
@@ -35,21 +35,21 @@ int main(int argc, char* argv[]) {
         if (g.is_open()) {
             while (!f.eof()) {
                 f >> p >> n;
-                if (n > pow(2, p-1)) {
+                if (n > pow(2, p - 1)) {
                     g << "Prueba inválida, n mayor que número de hojas" << endl;
                 }
                 else {
                     g << "Búsqueda con p = " << p << " y n = " << n << endl;
+                    double media = 0.0;
                     for (int i = 1; i <= n; i++) {
-                        start = std::chrono::system_clock::now();
+                        start = high_resolution_clock::now();
                         g << "Bola " << i << " -> " << busqueda(p, i);
-                        end = std::chrono::system_clock::now();
-                        std::chrono::duration<double> elapsed_seconds = end - start;
-                        auto nanoseconds = std::chrono::duration_cast<std::chrono::nanoseconds>(elapsed_seconds);
-                        g << "  Tiempo: " << nanoseconds.count() << "ns\n";
-                        total_ns += nanoseconds.count();
+                        end = high_resolution_clock::now();
+                        auto tiempo = duration_cast<nanoseconds>(end - start).count();
+                        g << "  Tiempo: " << tiempo << "ns\n";
+                        media += tiempo;
                     }
-                    g << "----- TIEMPO TOTAL " << total_ns << "ns -----\n";
+                    g << "----- TIEMPO MEDIO BÚSQUEDA " << media / n << "ns -----\n";
                     g << endl;
                 }
             }
@@ -58,9 +58,3 @@ int main(int argc, char* argv[]) {
     }
     f.close();
 }
-
-    
-    
-     
-  
-             
