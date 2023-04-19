@@ -5,7 +5,7 @@
 * FECHA:       19 abril 2023
 * FICHERO:     pinball.cc
 * DESCRIPCIÓN: Programa que simula una máquina de pinball dejando caer una 
-*              cantidad de n bolas y calcula el nodo donde caerá cada bola
+*              cantidad de n bolas y calcula la posición de parada de cada bola
 */
 
 #include <iostream>
