@@ -1,0 +1,30 @@
+Alonso Gutiérrez, Simón     821038@unizar.es    a821038
+Domingo Ralla, Diego        818637@unizar.es    a818637
+
+Se ha elaborado un programa en el que, simulando una máquina de pinball, se
+dejan caer n bolas desde la raíz de un árbol binario completo. Todos los nodos
+del árbol están numerados de forma secuencial comenzando por 1, y en cada nivel
+de izquierda a derecha. Para determinar la dirección de movimiento de una bola,
+cada nodo no terminal tiene asociado un flag (T o F), y al visitar un nodo se 
+cambia el valor del flag. Si el flag es false, la bola caerá por el subárbol
+izquierdo, y si es true por el derecho. Inicialmente es false. El programa
+calcula, mediante un algoritmo divide y vencerás, el número de nodo en el que
+caerá cada una de las primeras n bolas.
+
+Se incluye un fichero pinball.cc con las siguientes características:
+•   Se ha diseñado un algoritmo divide y vencerás "busqueda", que toma como
+    entrada la profundidad p del árbol y la i-ésima bola, y determina la
+    posición de parada de la bola. Se hace uso de una función "busquedaInm" por
+    inmersión para calcular el siguiente nodo por el que pasará la bola.
+•   El programa calcula la posición de las primeras n bolas de un árbol con
+    profundidad p con el algoritmo implementado.
+    Uso: pinball.cc pruebas.txt resultados.txt donde
+    - pruebas.txt incluye diferentes configuraciones de los parámetros del
+      problema, cada una en una línea siguiendo el siguiente formato:
+      profundidad num_bolas
+    - resultados.txt guarda los resultados. Para cada configuración se incluye
+      la posición de cada bola, el tiempo de ejecución de la búsqueda de cada
+      una de ellas, y el tiempo medio de búsqueda para cada configuración.
+
+Se incluye también un script ejecutar.sh que compila y ejecuta el programa con
+los casos de prueba del fichero pruebas.txt.

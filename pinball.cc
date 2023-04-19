@@ -1,3 +1,13 @@
+/*
+* AUTORES:     Diego Domingo Ralla (818637)
+*              Simón Alonso Gutiérrez (821038)
+* ASIGNATURA:  Algoritmia Básica
+* FECHA:       19 abril 2023
+* FICHERO:     pinball.cc
+* DESCRIPCIÓN: Programa que simula una máquina de pinball dejando caer una 
+*              cantidad de n bolas y calcula el nodo donde caerá cada bola
+*/
+
 #include <iostream>
 #include <cmath>
 #include <fstream>
@@ -6,7 +16,10 @@
 using namespace std;
 using namespace chrono;
 
-unsigned long long busquedaInm(int p, int i, unsigned long long nodo) {
+// Busca el nodo en el que caerá la i-ésima bola en un árbol de profundidad p
+// Pre:  i <= 2^(p-1) ∧ nodo <= 2^p - 1
+// Post: devuelve el número del siguiente nodo por el que pasará la bola i
+unsigned long long busquedaInm(int p, unsigned long long i, unsigned long long nodo) {
     if (p == 1) {
         return nodo;
     }
@@ -20,18 +33,28 @@ unsigned long long busquedaInm(int p, int i, unsigned long long nodo) {
     }
 }
 
+// Busca el nodo en el que caerá la i-ésima bola en un árbol de profundidad p
+// Pre:  i <= 2^(p-1) 
+// Post: devuelve el número de nodo donde caerá la bola i
 unsigned long long busqueda(int p, int i) {
     return busquedaInm(p, i, 1);
 }
 
 int main(int argc, char* argv[]) {
-    int p, n;
+    int p;
+    unsigned long long n;
     time_point<high_resolution_clock> start, end;
     ifstream f;
+
+    if (argc != 3) {
+        cerr << "Uso: pinball.cc pruebas.txt resultados.txt" << endl;
+        return 1;
+    }
+
     f.open(argv[1]);
     if (f.is_open()) {
         ofstream g;
-        g.open(argv[2],ios::trunc);
+        g.open(argv[2], ios::trunc);
         if (g.is_open()) {
             while (!f.eof()) {
                 f >> p >> n;
@@ -41,7 +64,7 @@ int main(int argc, char* argv[]) {
                 else {
                     g << "Búsqueda con p = " << p << " y n = " << n << endl;
                     double media = 0.0;
-                    for (int i = 1; i <= n; i++) {
+                    for (unsigned long long i = 1; i <= n; i++) {
                         start = high_resolution_clock::now();
                         g << "Bola " << i << " -> " << busqueda(p, i);
                         end = high_resolution_clock::now();
