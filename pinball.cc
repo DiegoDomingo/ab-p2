@@ -24,12 +24,16 @@ unsigned long long busquedaInm(int p, unsigned long long i, unsigned long long n
         return nodo;
     }
     else {
+        // Si la bola es impar, se busca por el subárbol izquierdo
         if (i % 2 != 0) {
             return busquedaInm(p - 1, (i + 1) / 2, nodo * 2);
         }
+        // Si es par, se busca por el subárbol derecho
         else {
             return busquedaInm(p - 1, i / 2, nodo * 2 + 1);
         }
+        // En ambos casos se recalcula el índice de la bola para el subárbol
+        // correspondiente
     }
 }
 

@@ -5,7 +5,7 @@
 # FECHA:       19 abril 2023
 # FICHERO:     ejecutar.sh
 # DESCRIPCIÓN: Script de ejecución que automatiza la compilación y ejecución del
-#              programa con un casos de prueba
+#              programa con varios casos de prueba
 #
 
 #!/bin/bash
